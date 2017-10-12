@@ -6,7 +6,7 @@ package com.example.demo.exception;
  * @author Carlos Pancioni
  *
  */
-public class ExampleCustomNPE extends CustomNullPointerException {
+public class ExampleCustomNPE extends CustomException {
 
 	private static final long serialVersionUID = -6328764910118256665L;
 
