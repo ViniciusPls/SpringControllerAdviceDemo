@@ -16,4 +16,9 @@ public class ResponseBuilder {
 	public static ErrorResponse errorResponse(final CustomException e, final HttpStatus status) {
 		return new ErrorResponse(status, e.getCode(), e.getMessage(), e.getStackTrace().toString());
 	}
+
+	public static ErrorResponse errorResponse(final Exception e, final HttpStatus status) {
+		return new ErrorResponse(status, "", "Unexpected error condition!", e.getStackTrace().toString());
+	}
+
 }
