@@ -30,6 +30,20 @@ public class ExampleController {
 	}
 
 	/**
+	 * Returns an null pointer exception
+	 *
+	 * @return an exception
+	 * @throws Exception
+	 */
+	@GetMapping(value = "/nullExceptionHandler/")
+	public String nullTest() throws Exception {
+		System.out.println("Unexpected situation!");
+		String s = null;
+		System.out.println(s.length());
+		return "nullTest";
+	}
+
+	/**
 	 * Returns an example of a custom exception being called when something goes
 	 * wrong
 	 * 

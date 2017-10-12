@@ -18,4 +18,10 @@ public class ExampleControllerAdvice {
 	public ResponseEntity<ErrorResponse> customException(final ExampleCustomNPE e){
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResponseBuilder.errorResponse(e, HttpStatus.INTERNAL_SERVER_ERROR));
 	}
+
+	@ExceptionHandler(value = Exception.class)
+	public ResponseEntity<ErrorResponse> customException(final Exception e){
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResponseBuilder.errorResponse(e, HttpStatus.INTERNAL_SERVER_ERROR));
+	}
+
 }
