@@ -11,7 +11,7 @@ import com.example.demo.beans.ExampleBean;
 public class ExampleServices {
 
     public static void exampleRestAPI(final ExampleBean body) {
-        body.setName( "Hello, " + body.getName() );
+        body.setName( "My name is Bond, " + body.getName() );
         body.setId(body.getId()*10);
     }
 }

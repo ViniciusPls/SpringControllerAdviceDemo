@@ -17,7 +17,7 @@ import com.example.service.ExampleServices;
  * example use http://localhost:8080/camel/api/bean as URL with some json data
  * for {@link ExampleBean}.
  * 
- * e.g: { "id": 1, "name": "World" }
+ * e.g: { "id": 1, "name": "James Bond" }
  * 
  * @author Carlos Pancioni
  *
