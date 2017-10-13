@@ -35,6 +35,7 @@ public class ExampleController {
 	 * @return an exception
 	 * @throws Exception
 	 */
+	@SuppressWarnings("null")
 	@GetMapping(value = "/nullExceptionHandler/")
 	public String nullTest() throws Exception {
 		System.out.println("Unexpected situation!");
