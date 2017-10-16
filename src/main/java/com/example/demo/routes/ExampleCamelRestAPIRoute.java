@@ -35,24 +35,42 @@ public class ExampleCamelRestAPIRoute extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		CamelContext context = new DefaultCamelContext();
+		// @formatter:off
+		 
+		restConfiguration()
+			.contextPath(contextPath)
+			.port(serverPort)
+			.enableCORS(true)
+			.apiContextPath("/api-doc")
+			.apiProperty("api.title", "Test REST API")
+			.apiProperty("api.version", "v1")
+			.apiContextRouteId("doc-api")
+			.component("servlet")
+			.bindingMode(RestBindingMode.json);
 
-		restConfiguration().contextPath(contextPath).port(serverPort).enableCORS(true).apiContextPath("/api-doc")
-				.apiProperty("api.title", "Test REST API").apiProperty("api.version", "v1").apiContextRouteId("doc-api")
-				.component("servlet").bindingMode(RestBindingMode.json);
+		rest("/api/")
+			.id("api-route")
+			.consumes("application/json")
+			.post("/bean").bindingMode(RestBindingMode.json_xml)
+			.type(ExampleBean.class)
+			.to("direct:remoteService");
 
-		rest("/api/").id("api-route").consumes("application/json").post("/bean").bindingMode(RestBindingMode.json_xml)
-				.type(ExampleBean.class).to("direct:remoteService");
-
-		from("direct:remoteService").routeId("direct-route").tracing().log(">>> ${body.id}").log(">>> ${body.name}")
-				// .transform().simple("blue ${in.body.name}")
-				.process(new Processor() {
-					@Override
-					public void process(Exchange exchange) throws Exception {
-						final ExampleBean body = (ExampleBean) exchange.getIn().getBody();
-						ExampleServices.exampleRestAPI(body);
-						exchange.getIn().setBody(body);
-					}
-				}).setHeader(Exchange.HTTP_RESPONSE_CODE, constant(201));
+		from("direct:remoteService")
+			.routeId("direct-route")
+			.tracing()
+			.log(">>> ${body.id}")
+			.log(">>> ${body.name}")
+			// .transform().simple("blue ${in.body.name}")
+			.process(new Processor() {
+				@Override
+				public void process(Exchange exchange) throws Exception {
+					final ExampleBean body = (ExampleBean) exchange.getIn().getBody();
+					ExampleServices.exampleRestAPI(body);
+					exchange.getIn().setBody(body);
+				}
+			}).setHeader(Exchange.HTTP_RESPONSE_CODE, constant(201));
+		
+		// @formatter:on
 	}
 
 }
